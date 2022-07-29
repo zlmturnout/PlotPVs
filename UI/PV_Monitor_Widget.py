@@ -1,3 +1,4 @@
+from calendar import c
 from epics import ca, caget, cainfo, camonitor, caput, PV, camonitor_clear, get_pv
 import time, random, sys, os, math, datetime, traceback
 import pandas as pd
@@ -34,9 +35,10 @@ class PVMonitor(QWidget,Ui_Form):
     """
     close_sig=Signal(str)
     
-    def __init__(self,parent=None,PVname=None):
+    def __init__(self,parent=None,PVname=None,TagName=None,):
         super(PVMonitor,self).__init__()
         self.pvname=PVname
+        self.tagname=TagName if TagName else PVname
         self.setupUi(self)
         self.setWindowTitle(f'Monitoring {PVname}')
         self.monitoring_flag=False
@@ -144,6 +146,7 @@ class PVMonitor(QWidget,Ui_Form):
                                    markeredgecolor='orchid', linestyle='-', color='c')
         self.data_fig_ax.set_xlabel(x_name, fontsize=12, color='m')
         self.data_fig_ax.set_ylabel(y_name, fontsize=12, color='m')
+        self.data_fig_ax.set_title(self.tagname,color='#ff5500')
         self.data_fig_ax.figure.autofmt_xdate(rotation=25)
         self.data_fig_ax.figure.canvas.draw()
 
@@ -166,7 +169,7 @@ class PVMonitor(QWidget,Ui_Form):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    win = PVMonitor(PVname='LiminZhou:ai1')
+    win = PVMonitor(PVname='LiminZhou:ai1',TagName='LiminZhou:ai1')
     win.show()
     sys.exit(app.exec())
 

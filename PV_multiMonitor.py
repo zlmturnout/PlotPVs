@@ -1,5 +1,6 @@
 from re import S
 import time, random, sys, os, math, datetime, traceback
+from bs4 import Tag
 import pandas as pd
 from PySide6.QtCore import Qt,Signal,Slot,QTimer
 from PySide6.QtWidgets import QTreeView,QTreeWidget,QTreeWidgetItem,QHBoxLayout,QHeaderView,QWidget
@@ -26,10 +27,11 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
     @Slot()
     def on_Add_pv_btn_clicked(self):
         pvname=self.PV_name_txt.text()
+        tagname=self.Tag_name_txt.text()
         print(f'get pvname: {pvname}')
         if pvname not in self.pvmonitors_dict:
             self.pvmonitors_count+=1
-            self.pvmonitors_dict[pvname]=PVMonitor(PVname=pvname)
+            self.pvmonitors_dict[pvname]=PVMonitor(PVname=pvname,TagName=tagname)
             self.PV_mdi.addSubWindow(self.pvmonitors_dict[pvname])
             self.pvmonitors_dict[pvname].show()
             self.pvmonitors_dict[pvname].close_sig.connect(self.close_pvmonitor)

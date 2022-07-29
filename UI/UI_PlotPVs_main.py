@@ -76,7 +76,7 @@ class Ui_MainWindow(object):
 
         self.PV_name_txt = QLineEdit(self.centralwidget)
         self.PV_name_txt.setObjectName(u"PV_name_txt")
-        self.PV_name_txt.setMinimumSize(QSize(300, 40))
+        self.PV_name_txt.setMinimumSize(QSize(260, 40))
         self.PV_name_txt.setMaximumSize(QSize(16777215, 40))
         palette1 = QPalette()
         palette1.setBrush(QPalette.Active, QPalette.Text, brush)
@@ -91,6 +91,44 @@ class Ui_MainWindow(object):
         self.PV_name_txt.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout.addWidget(self.PV_name_txt)
+
+        self.label_6 = QLabel(self.centralwidget)
+        self.label_6.setObjectName(u"label_6")
+        sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
+        self.label_6.setSizePolicy(sizePolicy)
+        self.label_6.setMinimumSize(QSize(100, 40))
+        self.label_6.setMaximumSize(QSize(100, 40))
+        palette2 = QPalette()
+        palette2.setBrush(QPalette.Active, QPalette.WindowText, brush)
+        palette2.setBrush(QPalette.Active, QPalette.Text, brush1)
+        palette2.setBrush(QPalette.Active, QPalette.ButtonText, brush2)
+        palette2.setBrush(QPalette.Inactive, QPalette.WindowText, brush3)
+        palette2.setBrush(QPalette.Inactive, QPalette.Text, brush3)
+        palette2.setBrush(QPalette.Inactive, QPalette.ButtonText, brush3)
+        palette2.setBrush(QPalette.Disabled, QPalette.WindowText, brush4)
+        palette2.setBrush(QPalette.Disabled, QPalette.Text, brush4)
+        palette2.setBrush(QPalette.Disabled, QPalette.ButtonText, brush4)
+        self.label_6.setPalette(palette2)
+        self.label_6.setFont(font)
+        self.label_6.setFrameShape(QFrame.NoFrame)
+        self.label_6.setFrameShadow(QFrame.Sunken)
+        self.label_6.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.label_6)
+
+        self.Tag_name_txt = QLineEdit(self.centralwidget)
+        self.Tag_name_txt.setObjectName(u"Tag_name_txt")
+        self.Tag_name_txt.setMinimumSize(QSize(150, 40))
+        self.Tag_name_txt.setMaximumSize(QSize(16777215, 40))
+        palette3 = QPalette()
+        palette3.setBrush(QPalette.Active, QPalette.Text, brush)
+        palette3.setBrush(QPalette.Inactive, QPalette.Text, brush3)
+        palette3.setBrush(QPalette.Disabled, QPalette.Text, brush4)
+        self.Tag_name_txt.setPalette(palette3)
+        self.Tag_name_txt.setFont(font1)
+        self.Tag_name_txt.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.Tag_name_txt)
 
         self.Add_pv_btn = QPushButton(self.centralwidget)
         self.Add_pv_btn.setObjectName(u"Add_pv_btn")
@@ -143,6 +181,9 @@ class Ui_MainWindow(object):
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"PV name:", None))
         self.PV_name_txt.setText(QCoreApplication.translate("MainWindow", u"LiminZhou:ai1", None))
         self.PV_name_txt.setPlaceholderText(QCoreApplication.translate("MainWindow", u"PV name", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Tag:", None))
+        self.Tag_name_txt.setText(QCoreApplication.translate("MainWindow", u"LiminZhou:ai1", None))
+        self.Tag_name_txt.setPlaceholderText(QCoreApplication.translate("MainWindow", u"PV name", None))
         self.Add_pv_btn.setText(QCoreApplication.translate("MainWindow", u"add", None))
     # retranslateUi
 
