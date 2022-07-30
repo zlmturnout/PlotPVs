@@ -63,7 +63,8 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         # monitor name
         self.pvmonitors_dict={}
         self.pvmonitors_count=0
-        self.PV_mdi.setBackground(QBrush(Qt.lightGray))
+        #self.PV_mdi.setBackground(QBrush(QColor(162, 178, 199)))
+        
         self.__init__menu()
         self.__init__beam_status()
     

@@ -487,6 +487,33 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
            <property name="styleSheet">
             <string notr="true"/>
            </property>
+           <property name="frameShape">
+            <enum>QFrame::Box</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="background">
+            <brush brushstyle="Dense4Pattern">
+             <color alpha="255">
+              <red>76</red>
+              <green>200</green>
+              <blue>231</blue>
+             </color>
+            </brush>
+           </property>
+           <property name="viewMode">
+            <enum>QMdiArea::SubWindowView</enum>
+           </property>
+           <property name="documentMode">
+            <bool>true</bool>
+           </property>
+           <property name="tabsMovable">
+            <bool>false</bool>
+           </property>
+           <property name="tabShape">
+            <enum>QTabWidget::Rounded</enum>
+           </property>
           </widget>
           <widget class="QWidget" name="verticalLayoutWidget">
            <layout class="QVBoxLayout" name="BeamStatus_VLayout"/>
@@ -637,24 +664,6 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
    <property name="palette">
     <palette>
      <active>
-      <colorrole role="WindowText">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>0</red>
-         <green>0</green>
-         <blue>0</blue>
-        </color>
-       </brush>
-      </colorrole>
-      <colorrole role="Text">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>0</red>
-         <green>0</green>
-         <blue>0</blue>
-        </color>
-       </brush>
-      </colorrole>
       <colorrole role="ButtonText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
@@ -666,24 +675,6 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
       </colorrole>
      </active>
      <inactive>
-      <colorrole role="WindowText">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>0</red>
-         <green>0</green>
-         <blue>0</blue>
-        </color>
-       </brush>
-      </colorrole>
-      <colorrole role="Text">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>0</red>
-         <green>0</green>
-         <blue>0</blue>
-        </color>
-       </brush>
-      </colorrole>
       <colorrole role="ButtonText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
@@ -695,24 +686,6 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
       </colorrole>
      </inactive>
      <disabled>
-      <colorrole role="WindowText">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>120</red>
-         <green>120</green>
-         <blue>120</blue>
-        </color>
-       </brush>
-      </colorrole>
-      <colorrole role="Text">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>120</red>
-         <green>120</green>
-         <blue>120</blue>
-        </color>
-       </brush>
-      </colorrole>
       <colorrole role="ButtonText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
@@ -774,6 +747,7 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
      <font>
       <family>Arial</family>
       <pointsize>12</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="title">
@@ -824,6 +798,7 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
      <font>
       <family>Arial</family>
       <pointsize>12</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="title">
@@ -873,6 +848,7 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
      <font>
       <family>Arial</family>
       <pointsize>12</pointsize>
+      <bold>true</bold>
      </font>
     </property>
     <property name="title">
