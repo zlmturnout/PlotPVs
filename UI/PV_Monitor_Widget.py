@@ -62,9 +62,10 @@ class PVMonitor(QWidget,Ui_Form):
 
     @Slot()
     def on_Start_monitor_btn_clicked(self):
+        pv_setinfo=f'{self.pvname} Monitor'
         if not self.monitoring_flag:
-            self._pv=PV(self.pvname,callback=self.pv_value_changed,connection_timeout=5)
             try:
+                self._pv=PV(self.pvname,callback=self.pv_value_changed,connection_timeout=5)
                 if self._pv.connect(timeout=5):
                     value=self._pv.get()
                     if value:
@@ -74,14 +75,14 @@ class PVMonitor(QWidget,Ui_Form):
                         # self.pv_timestamps.append(get_timestamp())
                         self.PV_value_input.setText(str(value))
                 else:
-                    self.PV_name_label.setText(f'{self.pvname} not found')
+                    pv_setinfo+='not connected'
             except Exception as e:
                 print(traceback.format_exc() + str(e))
             else:
                 self.monitoring_flag=True
-                self.PV_name_label.setText(f'{self.pvname} Monitor')
             finally:
                 print(f'end PV:{self.pvname} set')
+                self.PV_name_label.setText(pv_setinfo)
 
     def pv_value_changed(self,pvname=None,value=None,**kw):
         """
