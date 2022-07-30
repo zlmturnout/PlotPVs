@@ -124,7 +124,14 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         self.SSRF_beamCurrent_list=[]
         self.SSRF_timestamps_list=[]
         self.SSRF_beam_num=0
-        
+    
+    @Slot()
+    def on_actionSSRF_epics_triggered(self):
+        pvname="SR-Bl:DCCT:CURRENT"
+        tagname="SSRF BeamStatus"
+        self.statusBar().showMessage(tagname,3000)
+        self.Add_pv_plot(pvname,tagname)
+    
     @Slot()
     def on_actionSSRF_internet_triggered(self):
         print(f'start acquiring SSRF beam Status from internet')
