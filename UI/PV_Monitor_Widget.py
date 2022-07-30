@@ -75,7 +75,7 @@ class PVMonitor(QWidget,Ui_Form):
                         # self.pv_timestamps.append(get_timestamp())
                         self.PV_value_input.setText(str(value))
                 else:
-                    pv_setinfo+='not connected'
+                    pv_setinfo+=' not connected'
             except Exception as e:
                 print(traceback.format_exc() + str(e))
             else:
