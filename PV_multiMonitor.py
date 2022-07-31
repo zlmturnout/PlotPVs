@@ -1,4 +1,5 @@
 import time, random, sys, os, math, datetime, traceback
+from tkinter import E
 import pandas as pd
 from PySide6.QtCore import Qt,Signal,Slot,QTimer,QThread
 from PySide6.QtWidgets import QTreeView,QLabel,QHBoxLayout,QHeaderView,QWidget
@@ -165,7 +166,14 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         if curret=='error':
             self.statusLabel.setText(f'can not acquire SSRF beamstatus')
         elif curret.split('mA')[0]:
-            Current=round(float(curret.split('mA')[0]),2)
+            try: 
+                float(curret.split('mA')[0]),2
+            except Exception as e:
+                error_info = traceback.format_exc() + str(e) + '\n'
+                print(error_info)
+                Current=0.0
+            else:
+                Current=round(float(curret.split('mA')[0]),2)
             timestamp=get_datetime()
             self.SSRF_beamCurrent_list.append(Current)
             self.SSRF_timestamps_list.append(timestamp)

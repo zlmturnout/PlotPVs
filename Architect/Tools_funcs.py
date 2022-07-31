@@ -85,6 +85,14 @@ def SSRFBeamStatus(SSRF_http='http://159.226.222.249/ssrf/beam/'):
         text_info = [t for t in text_info if t != '']
         # find the current and other information
         Current = text_info[text_info.index('Current:') + 1]
+        try: 
+            float(Current.split('mA')[0]),2
+        except Exception as e:
+            error_info = traceback.format_exc() + str(e) + '\n'
+            print(error_info)
+            Current_num=0.0
+        else:
+            Current_num=round(float(Current.split('mA')[0]),2)
         #print('Current:' + Current)
         Operation_info = text_info[text_info.index('Orbit(rms)x/y:') + 2]
         #print(Operation_info)
@@ -99,9 +107,10 @@ def SSRFBeamStatus(SSRF_http='http://159.226.222.249/ssrf/beam/'):
             if idx%2==1:
                 name=text_info[idx].split(':')[0]
                 beam_status[name]=text_info[idx+1]
+        beam_status['Current']=f'{Current_num}mA'
     else:
-        Current,beam_info = "error",dict()
-    return Current,beam_status
+        Current_num,beam_info = "error",dict()
+    return Current_num,beam_status
 
 if __name__ == '__main__':
     SSRF_http='http://159.226.222.249/ssrf/beam/'
