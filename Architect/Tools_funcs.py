@@ -109,7 +109,7 @@ def SSRFBeamStatus(SSRF_http='http://159.226.222.249/ssrf/beam/'):
                 beam_status[name]=text_info[idx+1]
         beam_status['Current']=f'{Current_num}mA'
     else:
-        Current_num,beam_info = "error",dict()
+        Current_num,beam_info = 0.0,dict()
     return Current_num,beam_status
 
 if __name__ == '__main__':
