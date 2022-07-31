@@ -161,37 +161,26 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         """update SSRF beamstatus in left pannel
         """
         #print(f'beamstatus {beamstatus}')
-        curret=beamstatus[0][0]
-        
-        if curret=='error':
-            self.statusLabel.setText(f'can not acquire SSRF beamstatus')
-        elif curret.split('mA')[0]:
-            try: 
-                float(curret.split('mA')[0]),2
-            except Exception as e:
-                error_info = traceback.format_exc() + str(e) + '\n'
-                print(error_info)
-                Current=0.0
-            else:
-                Current=round(float(curret.split('mA')[0]),2)
-            timestamp=get_datetime()
-            self.SSRF_beamCurrent_list.append(Current)
-            self.SSRF_timestamps_list.append(timestamp)
-            self.SSRF_beam_num+=1
-            # update current
-            IP_current=f'SSRF beam:{curret}   Host IP:{get_host_ip()}'
-            self.IP_label.setText(IP_current)
-            # plot
-            if self.SSRF_beam_num>100:
-                current_list=self.SSRF_beamCurrent_list[-100:]
-                timestamps=self.SSRF_timestamps_list[-100:]
-            else:
-                current_list=self.SSRF_beamCurrent_list
-                timestamps=self.SSRF_timestamps_list
-            temp_timestamps=pd.Series(timestamps)
-            pd_timestamps=pd.to_datetime(temp_timestamps)
-            pd_current_list=pd.Series(current_list)
-            self.plot_beam_data(self.SSRF_beam_ax,pd_timestamps,pd_current_list,'Timestamp','Current',"SSRF Beam status")
+        current=beamstatus[0][0]
+        Current=round(current,2)
+        timestamp=get_datetime()
+        self.SSRF_beamCurrent_list.append(Current)
+        self.SSRF_timestamps_list.append(timestamp)
+        self.SSRF_beam_num+=1
+        # update current
+        IP_current=f'SSRF beam:{current}mA   Host IP:{get_host_ip()}'
+        self.IP_label.setText(IP_current)
+        # plot
+        if self.SSRF_beam_num>100:
+            current_list=self.SSRF_beamCurrent_list[-100:]
+            timestamps=self.SSRF_timestamps_list[-100:]
+        else:
+            current_list=self.SSRF_beamCurrent_list
+            timestamps=self.SSRF_timestamps_list
+        temp_timestamps=pd.Series(timestamps)
+        pd_timestamps=pd.to_datetime(temp_timestamps)
+        pd_current_list=pd.Series(current_list)
+        self.plot_beam_data(self.SSRF_beam_ax,pd_timestamps,pd_current_list,'Timestamp','Current',"SSRF Beam status")
     
     def plot_beam_data(self,axis, x_list: list, y_list: list, x_name: str, y_name: str,title:str=None):
         """ plot the beam current data
