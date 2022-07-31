@@ -123,19 +123,29 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         self.SSRF_beamCurrent_list=[]
         self.SSRF_timestamps_list=[]
         self.SSRF_beam_num=0
+        self.SSRF_epics_runflag=False
     
     @Slot()
     def on_actionSSRF_epics_triggered(self):
         pvname="SR-Bl:DCCT:CURRENT"
         tagname="SSRF BeamStatus"
-        self.statusBar().showMessage(tagname,3000)
-        self.Add_pv_plot(pvname,tagname)
+        #self.statusBar().showMessage(tagname,3000)
+        #self.Add_pv_plot(pvname,tagname)
+        if not self.SSRF_epics_runflag:
+            self.SSRF_epics_beamMonitor=PVMonitor(PVname=pvname,TagName=tagname)
+            self.SSRF_epics_beamMonitor.show()
+            self.BeamStatus_VLayout.addWidget(self.SSRF_epics_beamMonitor)
+            self.SSRF_epics_runflag=True
+        else:
+            self.statusLabel.setText(f'SSRF epics beamstatus already on')
+
     
     @Slot()
     def on_actionSSRF_internet_triggered(self):
         print(f'start acquiring SSRF beam Status from internet')
         if not self.SSRF_timer_runFlag:
             self.SSRF_timer.start(5000)
+            self.SSRF_timer_runFlag=True
         else:
             self.statusLabel.setText(f'SSRF beamstatus already on')
     
