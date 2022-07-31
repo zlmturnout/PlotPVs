@@ -189,7 +189,7 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         
         """
         axis.cla()
-        axis.fill_between(x_list, y_list, color="skyblue", alpha=0.3)
+        axis.fill_between(x_list, y_list, color="skyblue", alpha=0.5)
         axis.plot(x_list, y_list, marker='o', markersize=1, markerfacecolor='orchid',
                                    markeredgecolor='orchid', linestyle='-', color='skyblue')
         axis.set_xlabel(x_name, fontsize=12, color='m')
@@ -199,11 +199,6 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         axis.figure.canvas.draw()           
             
         
-        
-        
-
-
-
 #  end of beam status part    
 # **************************************VerTicaL@zlm**************************************
 
