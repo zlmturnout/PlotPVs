@@ -17,7 +17,15 @@ from UI.UI_PlotPVs_main import Ui_MainWindow
 from UI.PV_Monitor_Widget import PVMonitor
 
 # tool functions
-from Architect.Tools_funcs import SSRFBeamStatus,get_datetime,get_host_ip
+from Architect.Tools_funcs import SSRFBeamStatus,get_datetime,get_host_ip,createPath
+from Architect.Dict_DataFrame_Sqlite import dict_to_csv,dict_to_excel,dict_to_json,dict_to_SQLTable
+# save path
+DATA_PATH = os.getcwd()
+save_path = os.path.join(DATA_PATH, 'save_data')
+createPath(save_path)
+# data base
+SQLiteDB_path=createPath(os.path.join(save_path,'database'))
+
 class RunQThread(QThread):
     """
     run any time consuming operation of func(*args,**kwargs)
@@ -207,13 +215,53 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
 #  end of beam status part    
 # **************************************VerTicaL@zlm**************************************
 
+# **************************************VerTicaL@zlm**************************************
+    #  start of data save part 
+
+    def routine_data_save(self,save_header:str='SSRFBeamStatus'):
+         all_valid_data = self.get_full_data()
+         cur_datetime=time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+         filename=f'{save_header}-{cur_datetime}N'
+         today_folder=createPath(os.path.join(save_path,time.strftime('%Y-%m-%d', time.localtime())))
+         self.save_all_data(all_valid_data,today_folder,filename)
+        
+    def get_full_data(self):
+        """
+        get all the data whcih is not empty
+        """
+        valid_full_data=dict()
+        pv_data={"BeamCurrent":self.SSRF_beamCurrent_list,"timestamp":self.SSRF_timestamps_list}
+        # get the valid scan data (not empty)
+        for key, value in pv_data.items():
+            if value:
+                valid_full_data[key] = value
+        return valid_full_data
+
+
+    def save_all_data(self,full_data:dict,path,filename):
+        """save all sensor data
+        save to excel xlsx,json,csv and sqlite database
+        Args:
+            full_data[dict]: full data in dict
+            path: save path
+            filename: filename
+        """
+        if full_data and os.path.isdir(path):
+            dict_to_csv(full_data, path, filename + '.csv')
+            dict_to_excel(full_data, path, filename + '.xlsx')
+            dict_to_json(full_data, path, filename + '.json')
+            dict_to_SQLTable(full_data,filename, SQLiteDB_path, 'PVMonitorData.db')
+            details=f'save to excel/csv/json files.\nFilename:{path+filename}\nSqlite database:{SQLiteDB_path}/SensorData.db\ntablename:{filename}'
+            print(details)
+            
 
     def closeEvent(self, event):
         
         close = QMessageBox.question(self,"QUIT","Are you sure to exit?",
                                                    QMessageBox.Yes | QMessageBox.No)
         if close ==QMessageBox.Yes:
-                event.accept()
+            self.routine_data_save(save_header="SSRFBeamStatus")
+            event.accept()
         else:
                 event.ignore() 
 

@@ -12,7 +12,7 @@ UI/__pycache__
 # my ignore file
 *.log
 html/
-Database/fund_data/
+save_data
 UI/*.jpg
 
 # Distribution / packaging

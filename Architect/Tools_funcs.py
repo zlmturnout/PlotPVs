@@ -3,15 +3,15 @@ import time, random, sys, os, math, datetime, traceback
 import requests,socket,struct
 from bs4 import BeautifulSoup
 
-# def getIP(ifname):
-#     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#     IP = socket.inet_ntoa(fcntl.ioctl(
-#         s.fileno(),
-#         0x8915,  # SIOCGIFADDR
-#         struct.pack('256s', ifname[:15].encode('utf-8'))
-#     )[20:24])
-#     s.close()
-#     return IP
+def createPath(file_path):
+    """
+    create a given path if not exist and return it
+    :param file_path:
+    :return: file_path
+    """
+    if os.path.exists(file_path) is False:
+        os.makedirs(file_path)
+    return file_path
 
 def get_host_ip():
     """

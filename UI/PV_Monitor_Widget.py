@@ -8,9 +8,22 @@ from PySide6.QtGui import QIcon,QAction,QPixmap,QPainter,QColor,QFont
 from PySide6.QtSql import QSqlDatabase
 from PySide6.QtWidgets import QWidget, QPushButton, QStyle, QFileDialog, QApplication, QMainWindow, QGridLayout, \
     QMessageBox
+from numpy import save
+sys.path.append('.')
+# data save part
+from Architect.Dict_DataFrame_Sqlite import dict_to_csv,dict_to_excel,dict_to_json,dict_to_SQLTable
+from Architect.Tools_funcs import createPath
 # matplotlib
 from matplotlib.backends.backend_qtagg import(FigureCanvas, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
+
+# save path
+DATA_PATH = os.getcwd()
+save_path = os.path.join(DATA_PATH, 'save_data')
+createPath(save_path)
+# data base
+SQLiteDB_path=createPath(os.path.join(save_path,'database'))
+#today_folder=createPath(os.path.join(save_path,time.strftime('%Y-%m-%d', time.localtime())))
 
 # UI import
 from UI_PV_monitor import Ui_Form
@@ -35,7 +48,7 @@ class PVMonitor(QWidget,Ui_Form):
     """
     close_sig=Signal(str)
     
-    def __init__(self,parent=None,PVname=None,TagName=None,):
+    def __init__(self,parent=None,PVname:str=None,TagName:str=None,):
         super(PVMonitor,self).__init__()
         self.pvname=PVname
         self.tagname=TagName if TagName else PVname
@@ -51,6 +64,7 @@ class PVMonitor(QWidget,Ui_Form):
         self.pv_num_list=list()
         self.pv_timestamps=list()
         self.__init__matplotlib()
+        self.__init__datasave()
         self.timer.start(500)
 
     @Slot()
@@ -152,6 +166,95 @@ class PVMonitor(QWidget,Ui_Form):
         self.data_fig_ax.figure.canvas.draw()
 
 #  end of pv plot part by matplotlib
+# **************************************VerTicaL@zlm**************************************
+
+# **************************************VerTicaL@zlm**************************************
+    #  start of data save part 
+
+    def __init__datasave(self):
+        self.datasave_timer=QTimer()
+        self.datasave_timer.timeout.connect(self.routine_data_save)
+        self.datasave_timer.start(1000*600) # save data every 10min
+        self.datasave_num=0
+        self._usr_save_N=0
+
+    @Slot()
+    def on_Savedata_btn_clicked(self):
+        """save data to file
+        """
+        print("Saved data to file")
+        all_valid_data = self.get_full_data()
+        data_path=os.path.join(save_path,'save_data')
+        self.usr_save_full_data(all_valid_data,data_path,usr_define=1)
+    
+    def routine_data_save(self):
+         self.datasave_num+=1
+         all_valid_data = self.get_full_data()
+         cur_datetime=time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+         save_header=self.pvname.replace(":","_")
+         filename=f'{save_header}-{cur_datetime}N{self.datasave_num}'
+         today_folder=createPath(os.path.join(save_path,time.strftime('%Y-%m-%d', time.localtime())))
+         self.save_all_data(all_valid_data,today_folder,filename)
+        
+    def get_full_data(self):
+        """
+        get all the data whcih is not empty
+        """
+        valid_full_data=dict()
+        pv_data={"id":self.pv_num_list,"value":self.pv_value_list,"timestamp":self.pv_timestamps}
+        # get the valid scan data (not empty)
+        for key, value in pv_data.items():
+            if value:
+                valid_full_data[key] = value
+        return valid_full_data
+
+
+    def save_all_data(self,full_data:dict,path,filename):
+        """save all sensor data
+        save to excel xlsx,json,csv and sqlite database
+        Args:
+            full_data[dict]: full data in dict
+            path: save path
+            filename: filename
+        """
+        if full_data and os.path.isdir(path):
+            dict_to_csv(full_data, path, filename + '.csv')
+            dict_to_excel(full_data, path, filename + '.xlsx')
+            dict_to_json(full_data, path, filename + '.json')
+            dict_to_SQLTable(full_data,filename, SQLiteDB_path, 'PVMonitorData.db')
+            details=f'save to excel/csv/json files.\nFilename:{path+filename}\nSqlite database:{SQLiteDB_path}/SensorData.db\ntablename:{filename}'
+            print(details)
+            
+
+    def usr_save_full_data(self, full_data: dict, path: str, usrname='usr_test', usr_define: int = 1):
+        """
+        check all the data acquired now,save all valid data
+        :param usrname: usr defined filename
+        :param path: filepath
+        :param filename: filename without extension
+        :param usr_define: usr define save path and filename->1=yes,0=no
+        :return:
+        """
+        t_stamp = time.strftime('%Y-%m-%d-%H-%M', time.localtime())
+        self._usr_save_N += 1
+        filename = usrname + t_stamp + str(self._usr_save_N)
+        usr_path = path if os.path.isdir(path) else save_path
+        print(filename, usr_path)
+        # save full data
+        if full_data:
+            if usr_define == 1:
+                file_in_path, filetype = QFileDialog.getSaveFileName(self, 'save file', usr_path, 'xlsx(*.xlsx)')
+                usr_path = os.path.dirname(file_in_path)
+                usr_file = os.path.basename(file_in_path)
+                filename = usr_file.split('.')[0]
+            self.save_all_data(full_data, usr_path, filename)
+        else:
+            if usr_define == 1:
+                print(f'No data to save')
+            else:
+                pass
+
+#  end of data save part 
 # **************************************VerTicaL@zlm**************************************
     
 
