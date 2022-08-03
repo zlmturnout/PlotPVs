@@ -1,11 +1,9 @@
-from operator import eq
 from xml.etree import ElementTree as ET
 import os,sys,json,re,time
 sys.path.append('.')
 
 if __name__ == '__main__':
     #DOMtree=ET.parse("as-ssd-benchSamsungSSD860EVO500GB.xml")
-    
     
     PVroot=ET.Element("SSRF-Eline")
     Beamline=ET.SubElement(PVroot,"eline20U2",attrib={"Name": "softBranch"})
