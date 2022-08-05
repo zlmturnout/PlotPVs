@@ -17,23 +17,24 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit,
-    QPushButton, QSizePolicy, QSpacerItem, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+    QPushButton, QSizePolicy, QSpacerItem, QTableView,
+    QVBoxLayout, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(674, 511)
-        self.gridLayout_2 = QGridLayout(Form)
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.verticalLayout_4 = QVBoxLayout()
+        Form.resize(982, 511)
+        self.widget = QWidget(Form)
+        self.widget.setObjectName(u"widget")
+        self.verticalLayout_4 = QVBoxLayout(self.widget)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_3 = QVBoxLayout()
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.XML_file_txt = QLineEdit(Form)
+        self.XML_file_txt = QLineEdit(self.widget)
         self.XML_file_txt.setObjectName(u"XML_file_txt")
         self.XML_file_txt.setMinimumSize(QSize(260, 40))
         self.XML_file_txt.setMaximumSize(QSize(16777215, 40))
@@ -57,7 +58,7 @@ class Ui_Form(object):
 
         self.horizontalLayout_2.addWidget(self.XML_file_txt)
 
-        self.Load_pvxml_btn = QPushButton(Form)
+        self.Load_pvxml_btn = QPushButton(self.widget)
         self.Load_pvxml_btn.setObjectName(u"Load_pvxml_btn")
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -83,7 +84,7 @@ class Ui_Form(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.label_5 = QLabel(Form)
+        self.label_5 = QLabel(self.widget)
         self.label_5.setObjectName(u"label_5")
         sizePolicy.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
         self.label_5.setSizePolicy(sizePolicy)
@@ -117,7 +118,7 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.label_5)
 
-        self.label_8 = QLabel(Form)
+        self.label_8 = QLabel(self.widget)
         self.label_8.setObjectName(u"label_8")
         sizePolicy.setHeightForWidth(self.label_8.sizePolicy().hasHeightForWidth())
         self.label_8.setSizePolicy(sizePolicy)
@@ -141,7 +142,7 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.label_8)
 
-        self.label_7 = QLabel(Form)
+        self.label_7 = QLabel(self.widget)
         self.label_7.setObjectName(u"label_7")
         sizePolicy.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
         self.label_7.setSizePolicy(sizePolicy)
@@ -165,7 +166,7 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.label_7)
 
-        self.label_6 = QLabel(Form)
+        self.label_6 = QLabel(self.widget)
         self.label_6.setObjectName(u"label_6")
         sizePolicy.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
         self.label_6.setSizePolicy(sizePolicy)
@@ -196,7 +197,7 @@ class Ui_Form(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.Beamline_cbx = QComboBox(Form)
+        self.Beamline_cbx = QComboBox(self.widget)
         self.Beamline_cbx.addItem("")
         self.Beamline_cbx.setObjectName(u"Beamline_cbx")
         self.Beamline_cbx.setMinimumSize(QSize(100, 40))
@@ -218,7 +219,7 @@ class Ui_Form(object):
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.New_beamline_txt = QLineEdit(Form)
+        self.New_beamline_txt = QLineEdit(self.widget)
         self.New_beamline_txt.setObjectName(u"New_beamline_txt")
         self.New_beamline_txt.setMinimumSize(QSize(170, 40))
         self.New_beamline_txt.setMaximumSize(QSize(16777215, 40))
@@ -232,7 +233,7 @@ class Ui_Form(object):
 
         self.horizontalLayout.addWidget(self.New_beamline_txt)
 
-        self.Add_newbeamline_btn = QPushButton(Form)
+        self.Add_newbeamline_btn = QPushButton(self.widget)
         self.Add_newbeamline_btn.setObjectName(u"Add_newbeamline_btn")
         sizePolicy.setHeightForWidth(self.Add_newbeamline_btn.sizePolicy().hasHeightForWidth())
         self.Add_newbeamline_btn.setSizePolicy(sizePolicy)
@@ -251,7 +252,7 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
-        self.Instrument_txt = QLineEdit(Form)
+        self.Instrument_txt = QLineEdit(self.widget)
         self.Instrument_txt.setObjectName(u"Instrument_txt")
         self.Instrument_txt.setMinimumSize(QSize(260, 40))
         self.Instrument_txt.setMaximumSize(QSize(16777215, 40))
@@ -265,7 +266,7 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addWidget(self.Instrument_txt)
 
-        self.PV_alias_txt = QLineEdit(Form)
+        self.PV_alias_txt = QLineEdit(self.widget)
         self.PV_alias_txt.setObjectName(u"PV_alias_txt")
         self.PV_alias_txt.setMinimumSize(QSize(260, 40))
         self.PV_alias_txt.setMaximumSize(QSize(16777215, 40))
@@ -279,7 +280,7 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addWidget(self.PV_alias_txt)
 
-        self.PV_name_txt = QLineEdit(Form)
+        self.PV_name_txt = QLineEdit(self.widget)
         self.PV_name_txt.setObjectName(u"PV_name_txt")
         self.PV_name_txt.setMinimumSize(QSize(260, 40))
         self.PV_name_txt.setMaximumSize(QSize(16777215, 40))
@@ -303,10 +304,16 @@ class Ui_Form(object):
 
         self.verticalLayout_4.addLayout(self.verticalLayout_3)
 
-        self.tableWidget = QTableWidget(Form)
-        self.tableWidget.setObjectName(u"tableWidget")
+        self.TableView = QTableView(self.widget)
+        self.TableView.setObjectName(u"TableView")
+        palette10 = QPalette()
+        palette10.setBrush(QPalette.Active, QPalette.Text, brush4)
+        palette10.setBrush(QPalette.Inactive, QPalette.Text, brush1)
+        palette10.setBrush(QPalette.Disabled, QPalette.Text, brush2)
+        self.TableView.setPalette(palette10)
+        self.TableView.setFont(font2)
 
-        self.verticalLayout_4.addWidget(self.tableWidget)
+        self.verticalLayout_4.addWidget(self.TableView)
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
@@ -314,7 +321,23 @@ class Ui_Form(object):
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer_2)
 
-        self.Update_btn = QPushButton(Form)
+        self.Add_PV_btn = QPushButton(self.widget)
+        self.Add_PV_btn.setObjectName(u"Add_PV_btn")
+        sizePolicy.setHeightForWidth(self.Add_PV_btn.sizePolicy().hasHeightForWidth())
+        self.Add_PV_btn.setSizePolicy(sizePolicy)
+        self.Add_PV_btn.setMinimumSize(QSize(100, 40))
+        self.Add_PV_btn.setMaximumSize(QSize(100, 40))
+        self.Add_PV_btn.setFont(font)
+        self.Add_PV_btn.setStyleSheet(u"QPushButton{background-color: rgb(0, 170, 127);selection-color: rgb(255, 85, 127);\n"
+"color: rgb(255, 255, 255);}\n"
+"\n"
+"QPushButton:hover{background-color:rgb(0, 170, 255);}\n"
+"\n"
+"QPushButton:pressed{background-color:rgb(255, 91, 58);}")
+
+        self.horizontalLayout_3.addWidget(self.Add_PV_btn)
+
+        self.Update_btn = QPushButton(self.widget)
         self.Update_btn.setObjectName(u"Update_btn")
         sizePolicy.setHeightForWidth(self.Update_btn.sizePolicy().hasHeightForWidth())
         self.Update_btn.setSizePolicy(sizePolicy)
@@ -332,9 +355,6 @@ class Ui_Form(object):
 
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
-
-
-        self.gridLayout_2.addLayout(self.verticalLayout_4, 0, 0, 1, 1)
 
 
         self.retranslateUi(Form)
@@ -355,13 +375,14 @@ class Ui_Form(object):
 
         self.New_beamline_txt.setText("")
         self.New_beamline_txt.setPlaceholderText(QCoreApplication.translate("Form", u"add NewBeamline", None))
-        self.Add_newbeamline_btn.setText(QCoreApplication.translate("Form", u"NewBeamline", None))
+        self.Add_newbeamline_btn.setText(QCoreApplication.translate("Form", u"Add Beamline", None))
         self.Instrument_txt.setText("")
         self.Instrument_txt.setPlaceholderText(QCoreApplication.translate("Form", u"Instrument name like PGM1", None))
         self.PV_alias_txt.setText("")
         self.PV_alias_txt.setPlaceholderText(QCoreApplication.translate("Form", u"Alias for PV name like GR_SET", None))
         self.PV_name_txt.setText("")
         self.PV_name_txt.setPlaceholderText(QCoreApplication.translate("Form", u"Input PV name", None))
+        self.Add_PV_btn.setText(QCoreApplication.translate("Form", u"add PV", None))
         self.Update_btn.setText(QCoreApplication.translate("Form", u"update", None))
     # retranslateUi
 

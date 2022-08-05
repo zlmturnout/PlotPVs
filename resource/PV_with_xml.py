@@ -2,6 +2,7 @@ from xml.etree import ElementTree as ET
 import os,sys,json,re,time,traceback
 import pandas as pd
 sys.path.append('.')
+from epics import ca, caget, cainfo, camonitor, caput, PV, camonitor_clear, get_pv
 from collections import namedtuple
 PV_info=namedtuple("PVinfo",field_names=["Beamline","Equipment","PValias","PVname","PVvalue"])
 
@@ -94,14 +95,15 @@ def read_PV_XML(xml_file,beamline='Eline20U2')->list[PV_info]:
 		</PGM1>
 	</Eline20U2>
     </SSRF-Eline>
-    read to dict:
-    Eline20U2={"PGM1":{
-        "Energy_SET":{"Name":"X20U:OP:PGM1:Soft_Energy.VAL","Value":"450"}}}
+    read to list[namedtuple]:
+    namedtuple:
+        PV_info=namedtuple("PVinfo",field_names=["Beamline","Equipment","PValias","PVname","PVvalue"])
+        
     Args:
-        xml_file (_type_): _description_
+        xml_file (str): xml file containing PV info
 
     Returns:
-        dict: example: Eline20U2=("PGM1":{"Energy_SET":{"Name":"X20U:OP:PGM1:Soft_Energy.VAL","Value":"450"}})
+        all_PV_info (list[PV_info]): [PV_info1,...]
     """
     # PV_info={}
     All_PV_info=[]
@@ -111,7 +113,7 @@ def read_PV_XML(xml_file,beamline='Eline20U2')->list[PV_info]:
         print(traceback.format_exc()+e)
     else:
         xml_root=DOMtree.getroot()
-        beamline = xml_root.find(f'{beamline}')
+        beamline20U = xml_root.find(f'{beamline}')
         for beamline in xml_root:
             if beamline:
                 for equipment in beamline:
@@ -131,22 +133,58 @@ def PVinfo_To_pd(pv_info_list:list[PV_info]) ->pd.DataFrame:
     if pv_info_list:
         for idx,pv_info in enumerate(pv_info_list):
             pd_PVdata.loc[idx]=[pv_info.Beamline,pv_info.Equipment,pv_info.PValias,pv_info.PVname,pv_info.PVvalue]
-        print(f'\n{pd_PVdata}')
+        print(f'PV info in pd form:\n{pd_PVdata}')
         return pd_PVdata
 
+def update_PV_Value(PVinfo:PV_info):
+    """update pv value provided by PV_info
 
-        
+    Args:
+        PVinfo (PV_info): provided PV_info
+
+    Returns:
+        updated PV_info (PV_info): updated PV_info
+    """
+    pvname=PVinfo.PVname
+    new_value=None
+    try:
+        new_value=caget(pvname,timeout=5)
+    except Exception as e:
+        print(traceback.format_exc() + str(e))
+    else:
+        print(f'get new value:{PVinfo.PVname}={new_value}')
+    finally:
+        update_PVinfo=PV_info(PVinfo.Beamline,PVinfo.Equipment,PVinfo.PValias,PVinfo.PVname,new_value)
+    return update_PVinfo
+
+def create_PV_xml(xml_file:str,root_name:str,beamline:str,equipment:str,pv_alias:str,pv_name:str,pv_value:str=None):
+    """create a xml file containing the given pv info
+
+    Args:
+        root_name (str): name of root element
+        beamline (str): beamline name
+        equipment (str): instrument or equipment
+        pv_alias (str): alias for PV Name
+        pv_name (str): EPICS PV Name
+        pv_value (str, optional): value of the PV Name, Defaults to None.
+    """
+    if not os.path.isfile(xml_file):
+        xml_file=os.path.join(os.getcwd(),'test.xml')
+    PVroot=ET.Element(root_name)
+    Beamline=ET.SubElement(PVroot,beamline,attrib={"Catgory": "Beamline"})
+    Equipment=ET.SubElement(Beamline,equipment,attrib={"Catgory": "Equipment"})
+    PV_alias=ET.SubElement(Equipment,pv_alias,attrib={"Name":pv_name})
+    if pv_value:
+        PV_alias.text=pv_value
+    DOM=ET.ElementTree(PVroot)
+    pretty_xml(PVroot, '\t', '\n')
+    DOM.write(xml_file,encoding="utf-8",xml_declaration=True)
+    return os.path.abspath(xml_file)
+    
 if __name__ == '__main__':
     
-    # PVroot=ET.Element("SSRF-Eline")
-    # Beamline=ET.SubElement(PVroot,"Eline20U2",attrib={"Catgory": "Beamline"})
-    # equipment_PGM1=ET.SubElement(Beamline,"PGM1",attrib={"Catgory": "Equipment"})
-    # PGM1_energy_set=ET.SubElement(equipment_PGM1,"Energy_SET",attrib={"Name":"X20U:OP:PGM1:Soft_Energy.VAL"})
-    # PGM1_energy_set.text='450'
-    # PGM1_energy_RBV=ET.SubElement(equipment_PGM1,"Energy_RBV",attrib={"Name":"X20U:OP:PGM1:Soft_Energy.RBV"})
-    # PGM1_energy_RBV.text='450'
-    # DOM=ET.ElementTree(PVroot)
-    # DOM.write("./resource/SSRF-Eline.xml",encoding="utf-8",xml_declaration=True)
+    xml_file=create_PV_xml("./resource/test.xml","T01test","T01","CAL","ai1","LiminZhou:ai1")
+    print(xml_file)
     # DOMtree=ET.parse("./resource/SSRF-Eline.xml")
     # root=DOMtree.getroot()
     # # add new element to DOM tree

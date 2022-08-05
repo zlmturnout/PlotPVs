@@ -1,7 +1,4 @@
-from hashlib import algorithms_available
-from re import S
 import time, random, sys, os, math, datetime, traceback
-from tkinter import N
 sys.path.append('.')
 import pandas as pd
 from PySide6.QtCore import Qt,Signal,Slot,QTimer,QThread
@@ -16,7 +13,7 @@ from UI.UI_input_PV_to_XML import Ui_Form
 from collections import namedtuple
 # input PV_with_XML func
 from xml.etree import ElementTree as ET
-from resource.PV_with_xml import add_PV_to_xml,read_PV_XML, pretty_xml,PV_info,PVinfo_To_pd
+from resource.PV_with_xml import add_PV_to_xml,read_PV_XML, pretty_xml,PV_info,PVinfo_To_pd,update_PV_Value
 # pandas to dataTable
 from Architect.Class_Pandas_data_QTable import PandasInQTable
 """
@@ -35,6 +32,9 @@ class PVToXML(QWidget,Ui_Form):
         self.setWindowTitle(f'Interact PV info with XML')
         self.xml_file=None
         self.xml_root=None
+        self.pd_PVinfo=None
+        self.all_PVinfo=None
+        self.pd_data_model=None
 
 # **************************************VerTicaL@zlm**************************************
 #  start of pv input part
@@ -46,9 +46,31 @@ class PVToXML(QWidget,Ui_Form):
         2.update xml file
         3.show PV info in table view
         """
+        self.all_PVinfo=read_PV_XML(self.xml_file)
+        updated_all_PVinfo=[]
+        for pv_info in self.all_PVinfo:
+            new_pv_info=update_PV_Value(pv_info)
+            updated_all_PVinfo.append(new_pv_info)
+        self.all_PVinfo=updated_all_PVinfo
+        #print(f'PV_info:\n{self.all_PVinfo}')
+        # update in table view
+        self.update_pvinfo(self.all_PVinfo)
+            
+    
+    @Slot()
+    def on_Add_PV_btn_clicked(self):
+        """
+        1.acquire the input PV info 
+        2.update xml file
+        3.show PV info in table view
+        """
         has_empty_input,add_PVinfo=self.acquire_PVinfo()
         if not has_empty_input and self.xml_root:
             add_PV_to_xml(self.xml_file,add_PVinfo)
+            # read the updated xml file
+            self.all_PVinfo=read_PV_XML(self.xml_file) 
+            self.update_pvinfo(self.all_PVinfo)
+        
     
     @Slot()
     def on_Load_pvxml_btn_clicked(self):
@@ -63,7 +85,22 @@ class PVToXML(QWidget,Ui_Form):
         else:
             self.xml_root=DOMtree.getroot()
             self.xml_file=self.XML_file_txt.text()
+            # read the xml file to get all PV info
+            self.all_PVinfo=read_PV_XML(self.xml_file)
+            self.update_pvinfo(self.all_PVinfo)
+            
 
+    def update_pvinfo(self,all_PVinfo:list[PV_info]):
+        """Update PV info
+        """
+        if all_PVinfo:
+            self.pd_PVinfo=PVinfo_To_pd(all_PVinfo)
+            self.pd_data_model = PandasInQTable(self.pd_PVinfo)
+            self.TableView.setModel(self.pd_data_model)
+            self.TableView.setWindowTitle("all PV info")
+            self.TableView.setAlternatingRowColors(True)
+        
+    
     def acquire_PVinfo(self):
         """acquire all input PV info
         """
