@@ -117,8 +117,8 @@ if __name__ == '__main__':
     PGM1_energy_RBV=ET.SubElement(equipment_PGM1,"Energy_RBV",attrib={"Name":"X20U:OP:PGM1:Soft_Energy.RBV"})
     PGM1_energy_RBV.text='450'
     DOM=ET.ElementTree(PVroot)
-    DOM.write("SSRF-Eline.xml",encoding="utf-8",xml_declaration=True)
-    DOMtree=ET.parse("SSRF-Eline.xml")
+    DOM.write("./resource/SSRF-Eline.xml",encoding="utf-8",xml_declaration=True)
+    DOMtree=ET.parse("./resource/SSRF-Eline.xml")
     root=DOMtree.getroot()
     # add new element to DOM tree
     PGM1_element=root.find("Eline20U2/PGM1")
@@ -129,7 +129,7 @@ if __name__ == '__main__':
     PGM1_MR_RBV=ET.SubElement(PGM1_element,"Mirror_RBV",attrib={"Name":"X20U:OP:PGM1:MR.RBV"})
     PGM1_MR_RBV.text='12450'
     pretty_xml(root, '\t', '\n')  # 执行美化方法
-    DOMtree.write("SSRF-Eline.xml",encoding="utf-8",xml_declaration=True)
+    DOMtree.write("./resource/SSRF-Eline.xml",encoding="utf-8",xml_declaration=True)
     pv_info=read_PV_XML("SSRF-Eline.xml")
     print(pv_info)
 

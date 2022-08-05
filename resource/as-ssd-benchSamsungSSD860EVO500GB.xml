@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ASSSDBenchmark
+  XmlFormatVersion="1">
+  <Information>
+    <Name>Samsung SSD 860 EVO 500GB</Name>
+    <Firmware>RVT01B6Q</Firmware>
+    <Controller>iaStorAC</Controller>
+    <Size>465.76 GB</Size>
+    <DateTime>2020/12/10 0:35:05</DateTime>
+    <BenchmarkVersion>2.0.7316.34247</BenchmarkVersion>
+    <Mode>MB/s</Mode>
+    <Note />
+    <Signature />
+  </Information>
+  <SeqTest>
+    <Read>520.56 MB/s</Read>
+    <Write>434.21 MB/s</Write>
+  </SeqTest>
+  <Random4K1TTest>
+    <Read>30.09 MB/s</Read>
+    <Write>69.31 MB/s</Write>
+  </Random4K1TTest>
+  <Random4K64TTest>
+    <Read>347.51 MB/s</Read>
+    <Write>297.68 MB/s</Write>
+  </Random4K64TTest>
+  <AccTimeTest>
+    <Read>0.129 ms</Read>
+    <Write>0.249 ms</Write>
+  </AccTimeTest>
+  <Score>
+    <Read>430</Read>
+    <Write>410</Write>
+    <Total>1066</Total>
+  </Score>
+</ASSSDBenchmark>
