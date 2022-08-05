@@ -1,5 +1,4 @@
 import time, random, sys, os, math, datetime, traceback
-from tkinter import E
 import pandas as pd
 from PySide6.QtCore import Qt,Signal,Slot,QTimer,QThread
 from PySide6.QtWidgets import QTreeView,QLabel,QHBoxLayout,QHeaderView,QWidget

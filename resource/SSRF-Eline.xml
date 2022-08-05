@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <SSRF-Eline>
-	<Eline20U2 Name="softBranch">
-		<PGM1 Name="Monochromator">
+	<Eline20U2 Catgory="Beamline">
+		<PGM1 Catgory="Equipment">
 			<Energy_SET Name="X20U:OP:PGM1:Soft_Energy.VAL">450</Energy_SET>
 			<Energy_RBV Name="X20U:OP:PGM1:Soft_Energy.RBV">450</Energy_RBV>
 			<Mirror_SET Name="X20U:OP:PGM1:MR.VAL">12450</Mirror_SET>
 			<Mirror_RBV Name="X20U:OP:PGM1:MR.RBV">12450</Mirror_RBV>
+			<GR_SET Name="X20U:OP:PGM1:GR.VAL" />
 		</PGM1>
 	</Eline20U2>
 </SSRF-Eline>

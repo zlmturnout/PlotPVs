@@ -21,7 +21,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QLineEdit" name="PV_name_txt_2">
+          <widget class="QLineEdit" name="XML_file_txt">
            <property name="minimumSize">
             <size>
              <width>260</width>
@@ -40,9 +40,9 @@
               <colorrole role="Text">
                <brush brushstyle="SolidPattern">
                 <color alpha="255">
-                 <red>255</red>
-                 <green>85</green>
-                 <blue>0</blue>
+                 <red>8</red>
+                 <green>177</green>
+                 <blue>255</blue>
                 </color>
                </brush>
               </colorrole>
@@ -689,8 +689,8 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
                   <colorrole role="Text">
                    <brush brushstyle="SolidPattern">
                     <color alpha="255">
-                     <red>0</red>
-                     <green>170</green>
+                     <red>8</red>
+                     <green>177</green>
                      <blue>255</blue>
                     </color>
                    </brush>
@@ -746,6 +746,115 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="New_beamline_txt">
+               <property name="minimumSize">
+                <size>
+                 <width>170</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="palette">
+                <palette>
+                 <active>
+                  <colorrole role="Text">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>255</red>
+                     <green>85</green>
+                     <blue>0</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                 </active>
+                 <inactive>
+                  <colorrole role="Text">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>0</red>
+                     <green>0</green>
+                     <blue>0</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                 </inactive>
+                 <disabled>
+                  <colorrole role="Text">
+                   <brush brushstyle="SolidPattern">
+                    <color alpha="255">
+                     <red>120</red>
+                     <green>120</green>
+                     <blue>120</blue>
+                    </color>
+                   </brush>
+                  </colorrole>
+                 </disabled>
+                </palette>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Cambria</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="placeholderText">
+                <string>add NewBeamline</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Add_newbeamline_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>130</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Cambria</family>
+                 <pointsize>14</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton{background-color: rgb(0, 170, 127);selection-color: rgb(255, 85, 127);
+color: rgb(255, 255, 255);}
+
+QPushButton:hover{background-color:rgb(0, 170, 255);}
+
+QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
+               </property>
+               <property name="text">
+                <string>NewBeamline</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -819,7 +928,7 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="PV_alisa_txt">
+            <widget class="QLineEdit" name="PV_alias_txt">
              <property name="minimumSize">
               <size>
                <width>260</width>
@@ -883,7 +992,7 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
               <set>Qt::AlignCenter</set>
              </property>
              <property name="placeholderText">
-              <string>Alias for PV name</string>
+              <string>Alias for PV name like GR_SET</string>
              </property>
             </widget>
            </item>
@@ -944,6 +1053,9 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
                <pointsize>14</pointsize>
                <bold>true</bold>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">border:2px;border-style:dashed;border-color: rgb(255, 0, 0);</string>
              </property>
              <property name="text">
               <string/>
