@@ -1,7 +1,8 @@
+from genericpath import isfile
 import time, random, sys, os, math, datetime, traceback
 import pandas as pd
 from PySide6.QtCore import Qt,Signal,Slot,QTimer,QThread
-from PySide6.QtWidgets import QTreeView,QLabel,QHBoxLayout,QHeaderView,QWidget
+from PySide6.QtWidgets import QTreeView,QLabel,QHBoxLayout,QHeaderView,QWidget,QMenu
 from PySide6.QtGui import QIcon,QAction,QPixmap,QPainter,QColor,QFont,QBrush
 from PySide6.QtSql import QSqlDatabase
 from PySide6.QtWidgets import QWidget, QPushButton, QStyle, QFileDialog, QApplication, QMainWindow, QGridLayout, \
@@ -11,6 +12,8 @@ from PySide6.QtWidgets import QWidget, QPushButton, QStyle, QFileDialog, QApplic
 from matplotlib.backends.backend_qtagg import(FigureCanvas, NavigationToolbar2QT as NavigationToolbar)
 from matplotlib.figure import Figure
 
+# xml read
+from resource.PV_with_xml import PV_info, read_PV_XML,PVinfo_To_pd,load_xml_pvinfo
 #import UI
 from UI.UI_PlotPVs_main import Ui_MainWindow
 from UI.PV_Monitor_Widget import PVMonitor
@@ -73,6 +76,7 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         
         self.__init__menu()
         self.__init__beam_status()
+        self.__init_pv_xml()
     
     def __init__menu(self):
         self.statusLabel=QLabel(self)
@@ -214,6 +218,74 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
 #  end of beam status part    
 # **************************************VerTicaL@zlm**************************************
 
+
+# **************************************VerTicaL@zlm**************************************
+#  start of xml file part 
+    def __init_pv_xml(self):
+        self.pd_pvdata=pd.DataFrame()
+        self.all_pv_info=[]
+        self.all_beamlines={}
+        #self.add_beamlinePVs()
+        self.actionLoadBeamline.triggered.connect(self.load_pvxml_file)
+        
+    def load_pvxml_file(self):
+        xml_file, filetype = QFileDialog.getOpenFileName(self, "read xml file(xml)", './', '*.xml')
+        if os.path.isfile(xml_file):
+            self.add_beamlinePVs(xml_file)
+                                                        
+
+
+    
+    def add_beamlinePVs(self,usr_xml_file:str=None):
+        """add pv menu into PVtree
+        PV_info=namedtuple("PVinfo",field_names=["Beamline","Equipment","PValias","PVname","PVvalue"])
+        menu Beamline-Equiment-PValias
+        Args:
+            usr_xml_file (str, optional): _description_. Defaults to None.
+        """
+        xml_file= usr_xml_file if usr_xml_file and os.path.isfile(usr_xml_file) else "./resource/SSRF-Eline.xml"
+        self.all_pv_info,self.pd_pvdata=load_xml_pvinfo(xml_file)
+        beamline_list=[]
+        #create menu Beamline-Equiment for all Beamline
+        if not self.pd_pvdata.empty:
+            for i in range(len(self.pd_pvdata)):
+                beamline_list.append(self.pd_pvdata.loc[i,"Beamline"])
+        beamline_set=set(beamline_list)
+        print(beamline_set,beamline_list)
+        for beamline in beamline_set:
+            # create a menu for each beamline
+            Beamline_menu = QMenu(f'{beamline}',self)
+            self.menuPVTree.addAction(Beamline_menu.menuAction())
+            self.all_beamlines[beamline]=Beamline_menu
+        # add all pv info
+        for pv_info in self.all_pv_info:
+            self.add_pv_action(pv_info)
+            
+        
+    def add_pv_action(self,pvinfo:PV_info):
+        """add pv info to Ui action
+        PV_info=namedtuple("PVinfo",field_names=["Beamline","Equipment","PValias","PVname","PVvalue"])
+        Args:
+            pvinfo (PV_info): _description_
+
+        Returns:
+            _type_: _description_
+        """
+        #create menu Beamline-Equiment-PValias action
+        alias_pvname=f'{pvinfo.Equipment}-{pvinfo.PValias}'
+        Equipment_alias_action=QAction(alias_pvname,self)
+        
+        Equipment_alias_action.objectName()
+        #add menu and action
+        self.all_beamlines[pvinfo.Beamline].addAction(Equipment_alias_action)
+        # add trigger
+        Equipment_alias_action.triggered.connect(lambda:self.Add_pv_plot(pvinfo.PVname,pvinfo.PValias))
+
+
+#  end of xml file part 
+# **************************************VerTicaL@zlm**************************************
+
+
 # **************************************VerTicaL@zlm**************************************
     #  start of data save part 
 
@@ -252,7 +324,10 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
             dict_to_SQLTable(full_data,filename, SQLiteDB_path, 'PVMonitorData.db')
             details=f'save to excel/csv/json files.\nFilename:{path+filename}\nSqlite database:{SQLiteDB_path}/SensorData.db\ntablename:{filename}'
             print(details)
-            
+
+#  end of data save part 
+# **************************************VerTicaL@zlm**************************************
+    
 
     def closeEvent(self, event):
         

@@ -663,39 +663,9 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
    </property>
    <property name="palette">
     <palette>
-     <active>
-      <colorrole role="ButtonText">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>22</red>
-         <green>22</green>
-         <blue>22</blue>
-        </color>
-       </brush>
-      </colorrole>
-     </active>
-     <inactive>
-      <colorrole role="ButtonText">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>160</red>
-         <green>160</green>
-         <blue>160</blue>
-        </color>
-       </brush>
-      </colorrole>
-     </inactive>
-     <disabled>
-      <colorrole role="ButtonText">
-       <brush brushstyle="SolidPattern">
-        <color alpha="255">
-         <red>120</red>
-         <green>120</green>
-         <blue>120</blue>
-        </color>
-       </brush>
-      </colorrole>
-     </disabled>
+     <active/>
+     <inactive/>
+     <disabled/>
     </palette>
    </property>
    <property name="font">
@@ -755,6 +725,7 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
     </property>
     <addaction name="actionViewPVs"/>
     <addaction name="actionadd_PV_name"/>
+    <addaction name="actionLoadBeamline"/>
    </widget>
    <widget class="QMenu" name="menuPVTree">
     <property name="palette">
@@ -804,7 +775,19 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
     <property name="title">
      <string>PVTree</string>
     </property>
-    <addaction name="action20U"/>
+    <widget class="QMenu" name="menu20U">
+     <property name="title">
+      <string>20U</string>
+     </property>
+     <widget class="QMenu" name="menuPGM1">
+      <property name="title">
+       <string>PGM1</string>
+      </property>
+      <addaction name="actionEset"/>
+     </widget>
+     <addaction name="menuPGM1"/>
+    </widget>
+    <addaction name="menu20U"/>
    </widget>
    <widget class="QMenu" name="menuBeamStatus">
     <property name="palette">
@@ -878,17 +861,6 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
     <string>SSRF-internet</string>
    </property>
   </action>
-  <action name="action20U">
-   <property name="text">
-    <string>20U</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>Arial</family>
-     <pointsize>12</pointsize>
-    </font>
-   </property>
-  </action>
   <action name="actionViewPVs">
    <property name="text">
     <string>ViewPVs</string>
@@ -897,6 +869,21 @@ QPushButton:pressed{background-color:rgb(255, 91, 58);}</string>
   <action name="actionadd_PV_name">
    <property name="text">
     <string>add PV name</string>
+   </property>
+  </action>
+  <action name="actionEset">
+   <property name="text">
+    <string>Eset</string>
+   </property>
+  </action>
+  <action name="action20U_2">
+   <property name="text">
+    <string>20U</string>
+   </property>
+  </action>
+  <action name="actionLoadBeamline">
+   <property name="text">
+    <string>LoadPVs</string>
    </property>
   </action>
  </widget>

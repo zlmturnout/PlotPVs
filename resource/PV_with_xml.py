@@ -4,6 +4,7 @@ import pandas as pd
 sys.path.append('.')
 from epics import ca, caget, cainfo, camonitor, caput, PV, camonitor_clear, get_pv
 from collections import namedtuple
+
 PV_info=namedtuple("PVinfo",field_names=["Beamline","Equipment","PValias","PVname","PVvalue"])
 
 def pretty_xml(element, indent, newline, level=0):
@@ -157,9 +158,9 @@ def update_PV_Value(PVinfo:PV_info):
         update_PVinfo=PV_info(PVinfo.Beamline,PVinfo.Equipment,PVinfo.PValias,PVinfo.PVname,new_value)
     return update_PVinfo
 
-def create_PV_xml(xml_file:str,root_name:str,beamline:str,equipment:str,pv_alias:str,pv_name:str,pv_value:str=None):
+def create_PV_xml(xml_file:str,root_name:str,PVinfo:PV_info):
     """create a xml file containing the given pv info
-
+    PV_info=namedtuple("PVinfo",field_names=["Beamline","Equipment","PValias","PVname","PVvalue"])
     Args:
         root_name (str): name of root element
         beamline (str): beamline name
@@ -171,17 +172,28 @@ def create_PV_xml(xml_file:str,root_name:str,beamline:str,equipment:str,pv_alias
     if not os.path.isfile(xml_file):
         xml_file=os.path.join(os.getcwd(),'test.xml')
     PVroot=ET.Element(root_name)
-    Beamline=ET.SubElement(PVroot,beamline,attrib={"Catgory": "Beamline"})
-    Equipment=ET.SubElement(Beamline,equipment,attrib={"Catgory": "Equipment"})
-    PV_alias=ET.SubElement(Equipment,pv_alias,attrib={"Name":pv_name})
-    if pv_value:
-        PV_alias.text=pv_value
+    Beamline=ET.SubElement(PVroot,PVinfo.beamline,attrib={"Catgory": "Beamline"})
+    Equipment=ET.SubElement(Beamline,PVinfo.equipment,attrib={"Catgory": "Equipment"})
+    PV_alias=ET.SubElement(Equipment,PVinfo.pv_alias,attrib={"Name":PVinfo.pv_name})
+    if PVinfo.pv_value:
+        PV_alias.text=PVinfo.pv_value
     DOM=ET.ElementTree(PVroot)
     pretty_xml(PVroot, '\t', '\n')
     DOM.write(xml_file,encoding="utf-8",xml_declaration=True)
     return os.path.abspath(xml_file)
-    
+
+def load_xml_pvinfo(filename:str):
+    """
+    load xml file containing pv info for use
+    """
+    if os.path.isfile(filename):
+        all_pv_info=read_PV_XML(filename)
+        pd_pvdata=PVinfo_To_pd(all_pv_info)
+        return all_pv_info,pd_pvdata
+
+
 if __name__ == '__main__':
+
     
     xml_file=create_PV_xml("./resource/test.xml","T01test","T01","CAL","ai1","LiminZhou:ai1")
     print(xml_file)
@@ -200,4 +212,5 @@ if __name__ == '__main__':
     all_pv_info=read_PV_XML("./resource/SSRF-Eline.xml")
     print(all_pv_info)
     pd_pvdata=PVinfo_To_pd(all_pv_info)
+    print(pd_pvdata)
 
