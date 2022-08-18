@@ -87,7 +87,7 @@ class PVMonitor(QWidget,Ui_Form):
                         # self.pv_changed_Num+=1
                         # self.pv_num_list.append(self.pv_changed_Num)
                         # self.pv_timestamps.append(get_timestamp())
-                        self.PV_value_input.setText(str(value))
+                        self.PV_value_input.setText(f'{value:.4f}')
                 else:
                     pv_setinfo+=' not connected'
             except Exception as e:
@@ -104,7 +104,7 @@ class PVMonitor(QWidget,Ui_Form):
         update and plot
         """
         if value:
-            self.PV_value_input.setText(str(value))
+            self.PV_value_input.setText(f'{value:.4f}')
             timestamp=get_timestamp()
             self.pv_changed_Num+=1
             self.pv_value_list.append(float(value))

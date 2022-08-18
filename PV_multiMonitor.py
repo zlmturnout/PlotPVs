@@ -225,7 +225,7 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         self.pd_pvdata=pd.DataFrame()
         self.all_pv_info=[]
         self.all_beamlines={}
-        #self.add_beamlinePVs()
+        self.add_beamlinePVs()
         self.actionLoadBeamline.triggered.connect(self.load_pvxml_file)
         
     def load_pvxml_file(self):
@@ -233,8 +233,6 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         if os.path.isfile(xml_file):
             self.add_beamlinePVs(xml_file)
                                                         
-
-
     
     def add_beamlinePVs(self,usr_xml_file:str=None):
         """add pv menu into PVtree
