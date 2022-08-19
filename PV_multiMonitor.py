@@ -163,9 +163,12 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
     
     @Slot()
     def get_SSRF_BeamStatus(self):
-        self.SSRF_beamstatus_Qthread=RunQThread(SSRFBeamStatus)
-        self.SSRF_beamstatus_Qthread.run_sig.connect(self.update_SSRF_BeamStatus)
-        self.SSRF_beamstatus_Qthread.start()
+        try:
+            self.SSRF_beamstatus_Qthread=RunQThread(SSRFBeamStatus)
+            self.SSRF_beamstatus_Qthread.run_sig.connect(self.update_SSRF_BeamStatus)
+            self.SSRF_beamstatus_Qthread.start()
+        except Exception as e:
+            print(traceback.format_exc()+e)
     
     @Slot(list)
     def update_SSRF_BeamStatus(self,beamstatus):
@@ -326,7 +329,6 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
 #  end of data save part 
 # **************************************VerTicaL@zlm**************************************
     
-
     def closeEvent(self, event):
         
         close = QMessageBox.question(self,"QUIT","Are you sure to exit?",
