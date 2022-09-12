@@ -116,6 +116,6 @@ if __name__ == '__main__':
     SSRF_http='http://159.226.222.249/ssrf/beam/'
     current,beam_info = SSRFBeamStatus(SSRF_http)
     print(current,beam_info)
-    # print(f'Current: {beam_info["Current"]},\nPlan: {beam_info["ShiftPlan"]},\nLight: {beam_info["Light"]}')
+    print(f'Current: {beam_info["Current"]},\nPlan: {beam_info["ShiftPlan"]},\nLight: {beam_info["Light"]}')
     # print(beam_info)
     # print(f'IP:{get_host_ip()}')
