@@ -83,7 +83,7 @@ def add_PV_to_xml(xml_file:str,new_PVinfo:PV_info)->bool:
         
         
 def read_PV_XML(xml_file,beamline='Eline20U2')->list[PV_info]:
-    """read a PV XML file to dict form
+    """read a PV XML file to list form
     Example:
    <SSRF-Eline>
 	<Eline20U2 Catgory="Beamline">
