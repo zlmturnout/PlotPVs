@@ -119,21 +119,21 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.Add_record_btn)
 
-        self.Save_all_btn = QPushButton(self.centralwidget)
-        self.Save_all_btn.setObjectName(u"Save_all_btn")
-        sizePolicy.setHeightForWidth(self.Save_all_btn.sizePolicy().hasHeightForWidth())
-        self.Save_all_btn.setSizePolicy(sizePolicy)
-        self.Save_all_btn.setMinimumSize(QSize(100, 40))
-        self.Save_all_btn.setMaximumSize(QSize(100, 40))
-        self.Save_all_btn.setFont(font)
-        self.Save_all_btn.setStyleSheet(u"QPushButton{background-color: rgb(0, 170, 127);selection-color: rgb(255, 85, 127);\n"
+        self.Save_tofile_btn = QPushButton(self.centralwidget)
+        self.Save_tofile_btn.setObjectName(u"Save_tofile_btn")
+        sizePolicy.setHeightForWidth(self.Save_tofile_btn.sizePolicy().hasHeightForWidth())
+        self.Save_tofile_btn.setSizePolicy(sizePolicy)
+        self.Save_tofile_btn.setMinimumSize(QSize(120, 40))
+        self.Save_tofile_btn.setMaximumSize(QSize(100, 40))
+        self.Save_tofile_btn.setFont(font)
+        self.Save_tofile_btn.setStyleSheet(u"QPushButton{background-color: rgb(0, 170, 127);selection-color: rgb(255, 85, 127);\n"
 "color: rgb(255, 255, 255);}\n"
 "\n"
 "QPushButton:hover{background-color:rgb(0, 170, 255);}\n"
 "\n"
 "QPushButton:pressed{background-color:rgb(255, 91, 58);}")
 
-        self.horizontalLayout.addWidget(self.Save_all_btn)
+        self.horizontalLayout.addWidget(self.Save_tofile_btn)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -175,7 +175,7 @@ class Ui_MainWindow(object):
         self.XML_file_txt.setPlaceholderText(QCoreApplication.translate("MainWindow", u"XML file with PV names", None))
         self.Load_pvxml_btn.setText(QCoreApplication.translate("MainWindow", u"LoadXML", None))
         self.Add_record_btn.setText(QCoreApplication.translate("MainWindow", u"add record", None))
-        self.Save_all_btn.setText(QCoreApplication.translate("MainWindow", u"Save All", None))
+        self.Save_tofile_btn.setText(QCoreApplication.translate("MainWindow", u"Save To File", None))
         self.menuMenu.setTitle(QCoreApplication.translate("MainWindow", u"Menu", None))
         self.menuData.setTitle(QCoreApplication.translate("MainWindow", u"Data", None))
         self.menuHelp.setTitle(QCoreApplication.translate("MainWindow", u"Help", None))

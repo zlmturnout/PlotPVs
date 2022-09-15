@@ -191,6 +191,25 @@ def load_xml_pvinfo(filename:str):
         pd_pvdata=PVinfo_To_pd(all_pv_info)
         return all_pv_info,pd_pvdata
 
+def get_PVs_Value(PVnames:list)->list:
+    """get the current values of all PVname in the list
+    Args:
+        PVnames (list): list containing PVnames
+    Returns:
+        pv_valuelist(list): list with all values,if failed then None
+    """
+    pv_valuelist=[]
+    for pvname in PVnames:
+        new_value=None
+        try:
+            new_value=caget(pvname,timeout=5)
+        except Exception as e:
+            print(traceback.format_exc() + str(e))
+        else:
+            print(f'get new value:{pvname}={new_value}')
+        finally:
+            pv_valuelist.append(new_value)
+    return pv_valuelist
 
 if __name__ == '__main__':
 

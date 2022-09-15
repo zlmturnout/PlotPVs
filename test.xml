@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<T01test>
+	<T01 Catgory="Beamline">
+		<CAL Catgory="Equipment">
+			<ai1 Name="LiminZhou:ai1" />
+		</CAL>
+	</T01>
+	<Eline20U2 Catgory="Beamline">
+		<CAL Catgory="Equipment">
+			<ai2 Name="LiminZhou:ai2" />
+			<ai3 Name="LiminZhou:ai3" />
+		</CAL>
+	</Eline20U2>
+</T01test>
