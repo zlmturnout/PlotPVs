@@ -19,6 +19,12 @@ from xml.etree import ElementTree as ET
 from resource.PV_with_xml import add_PV_to_xml,read_PV_XML, pretty_xml,PV_info,PVinfo_To_pd,update_PV_Value,get_PVs_Value
 # pandas to dataTable
 from Architect.Class_Pandas_data_QTable import PandasInQTable
+from Architect.Tools_funcs import SSRFBeamStatus,get_datetime,get_host_ip,createPath
+# save path
+DATA_PATH = os.getcwd()
+save_path = os.path.join(DATA_PATH, 'save_data')
+createPath(save_path)
+today_folder=createPath(os.path.join(save_path,time.strftime('%Y-%m-%d', time.localtime())))
 """
 PV info format:
 
@@ -110,7 +116,7 @@ class SavePVRecords(QMainWindow,Ui_MainWindow):
         if all_PVinfo:
             for idx,pv_info in enumerate(all_PVinfo):
                 self.pvname_list.append(pv_info.PVname)
-                self.pvalias_list.append(pv_info.PVname)
+                self.pvalias_list.append(pv_info.PValias)
             self.pd_PVinfo=pd.DataFrame(columns=['id',*self.pvalias_list,'savetime'])
             self.get_new_record(self.pvname_list)
     
@@ -147,7 +153,7 @@ class SavePVRecords(QMainWindow,Ui_MainWindow):
     def on_Save_tofile_btn_clicked(self):
         """save pd data to excel file
         """
-        file_in_path,filetype=QFileDialog.getSaveFileName(self, "save all records to excel file",os.getcwd(), "excel file(*.xlsx)")
+        file_in_path,filetype=QFileDialog.getSaveFileName(self, "save all records to excel file",today_folder, "excel file(*.xlsx)")
         usr_path = os.path.dirname(file_in_path)
         usr_file = os.path.basename(file_in_path)
         filename = usr_file.split('.')[0]
@@ -171,14 +177,14 @@ class SavePVRecords(QMainWindow,Ui_MainWindow):
         pd_data.to_excel(excel_writer)
         excel_writer.save()
         print(f'save to excel xlsx file {excel_file_path} successfully')
-        # csv file
-        csv_file_path = os.path.join(save_path, filename + '.csv')
-        pd_data.to_csv(csv_file_path)
-        print(f'save to csv file {csv_file_path} successfully')
-        # json file
-        json_file_path = os.path.join(save_path, filename + '.json')
-        pd_data.to_json(json_file_path)
-        print(f'save to json file {json_file_path} successfully')
+        # # csv file
+        # csv_file_path = os.path.join(save_path, filename + '.csv')
+        # pd_data.to_csv(csv_file_path)
+        # print(f'save to csv file {csv_file_path} successfully')
+        # # json file
+        # json_file_path = os.path.join(save_path, filename + '.json')
+        # pd_data.to_json(json_file_path)
+        # print(f'save to json file {json_file_path} successfully')
 
 #  end of pv record part
 # **************************************VerTicaL@zlm**************************************  
@@ -194,7 +200,7 @@ class SavePVRecords(QMainWindow,Ui_MainWindow):
             if not self.pd_PVinfo.empty:
                 timestamp= time.strftime("%Y-%m-%d-%H", time.localtime())
                 autosave_filename=f'autosave_{timestamp}_{self.record_id}'
-                self.save_pd_data(self.pd_PVinfo,os.getcwd(),autosave_filename)
+                self.save_pd_data(self.pd_PVinfo,today_folder,autosave_filename)
             event.accept()
         else:
             event.ignore()
