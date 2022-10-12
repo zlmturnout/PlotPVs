@@ -194,7 +194,7 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         temp_timestamps=pd.Series(timestamps)
         pd_timestamps=pd.to_datetime(temp_timestamps)
         pd_current_list=pd.Series(current_list)
-        self.plot_beam_data(self.SSRF_beam_ax,pd_timestamps,pd_current_list,'Timestamp','Current',"SSRF Beam status")
+        self.plot_beam_data(self.SSRF_beam_ax,pd_timestamps,pd_current_list,'Timestamp','Current(mA)',"SSRF Beam status")
     
     def plot_beam_data(self,axis, x_list: list, y_list: list, x_name: str, y_name: str,title:str=None):
         """ plot the beam current data
@@ -337,7 +337,7 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
             self.routine_data_save(save_header="SSRFBeamStatus")
             event.accept()
         else:
-                event.ignore() 
+            event.ignore()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
