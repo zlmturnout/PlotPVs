@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SSRF-Eline>
+	<Eline20U2 Catgory="Beamline">
+		<PGM1 Catgory="Equipment">
+			<Energy_RBV Name="X20U:OP:PGM1:Soft_Energy.RBV">450</Energy_RBV>
+		</PGM1>
+		<XES Catgory="Equipment">
+			<Grate-X Name="X20U:SoftEX2:XES:Grate:X.RBV" />
+			<GrateR-X Name="X20U:SoftEX2:XES:Grate:R-X.RBV" />
+			<CCD-Y Name="X20U:SoftEX2:XES:CCD:Y.RBV" />
+			<CCD-Z Name="X20U:SoftEX2:XES:CCD:Z.RBV" />
+			<CCD-R-X Name="X20U:SoftEX2:XES:CCD:R-X.RBV" />
+		</XES>
+		<Slit1 Catgory="Equipment">
+			<Slit1-X Name="X20U:OP:SWSlit1:Size_X.RBV" />
+			<Slit1-Z Name="X20U:OP:SWSlit1:Size_Z.RBV" />
+		</Slit1>
+		<Slit2 Catgory="Equipment">
+			<Slit2-Z Name="X20U:OP:SBSlit2:Size_Z.RBV" />
+		</Slit2>
+	</Eline20U2>
+</SSRF-Eline>
