@@ -276,8 +276,3 @@ if __name__ == "__main__":
     win = PVMonitor(PVname='LiminZhou:ai1',TagName='LiminZhou:ai1')
     win.show()
     sys.exit(app.exec())
-
-
-
-
-

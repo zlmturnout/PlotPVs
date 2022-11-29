@@ -185,9 +185,9 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         IP_current=f'SSRF beam:{current}mA   Host IP:{get_host_ip()}'
         self.IP_label.setText(IP_current)
         # plot
-        if self.SSRF_beam_num>100:
-            current_list=self.SSRF_beamCurrent_list[-100:]
-            timestamps=self.SSRF_timestamps_list[-100:]
+        if self.SSRF_beam_num>1000:
+            current_list=self.SSRF_beamCurrent_list[-1000:]
+            timestamps=self.SSRF_timestamps_list[-1000:]
         else:
             current_list=self.SSRF_beamCurrent_list
             timestamps=self.SSRF_timestamps_list
@@ -208,7 +208,7 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
         
         """
         axis.cla()
-        axis.fill_between(x_list, y_list, color="skyblue", alpha=0.5)
+        axis.fill_between(x_list, y_list, color="fuchsia", alpha=0.5)
         axis.plot(x_list, y_list, marker='o', markersize=1, markerfacecolor='orchid',
                                    markeredgecolor='orchid', linestyle='-', color='skyblue')
         axis.set_xlabel(x_name, fontsize=12, color='m')
