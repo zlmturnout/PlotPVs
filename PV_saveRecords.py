@@ -117,7 +117,7 @@ class SavePVRecords(QMainWindow,Ui_MainWindow):
             for idx,pv_info in enumerate(all_PVinfo):
                 self.pvname_list.append(pv_info.PVname)
                 self.pvalias_list.append(pv_info.PValias)
-            self.pd_PVinfo=pd.DataFrame(columns=['id',*self.pvalias_list,'savetime'])
+            self.pd_PVinfo=pd.DataFrame(columns=['id','status',*self.pvalias_list,'savetime'])
             self.get_new_record(self.pvname_list)
     
     def get_new_record(self,pvname_list:list):
@@ -132,8 +132,9 @@ class SavePVRecords(QMainWindow,Ui_MainWindow):
     @Slot(list)
     def update_pvRecords(self,record:list):
         pv_values=record[0]
+        status_text=self.Status_txt.text()
         timestamp= time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-        self.pd_PVinfo.loc[self.record_id]=[self.record_id,*pv_values,timestamp]
+        self.pd_PVinfo.loc[self.record_id]=[self.record_id,status_text,*pv_values,timestamp]
         self.record_id+=1
         # set the model
         if not self.pd_PVinfo.empty:

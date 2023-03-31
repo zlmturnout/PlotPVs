@@ -16,10 +16,11 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QHeaderView,
-    QLineEdit, QMainWindow, QMenu, QMenuBar,
-    QPushButton, QSizePolicy, QSpacerItem, QStatusBar,
-    QTableView, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
+    QHeaderView, QLabel, QLineEdit, QMainWindow,
+    QMenu, QMenuBar, QPushButton, QSizePolicy,
+    QSpacerItem, QStatusBar, QTableView, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -99,7 +100,54 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer_2 = QSpacerItem(428, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.label_7 = QLabel(self.centralwidget)
+        self.label_7.setObjectName(u"label_7")
+        sizePolicy.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
+        self.label_7.setSizePolicy(sizePolicy)
+        self.label_7.setMinimumSize(QSize(100, 40))
+        self.label_7.setMaximumSize(QSize(100, 40))
+        palette2 = QPalette()
+        brush4 = QBrush(QColor(255, 85, 0, 255))
+        brush4.setStyle(Qt.SolidPattern)
+        palette2.setBrush(QPalette.Active, QPalette.WindowText, brush4)
+        palette2.setBrush(QPalette.Active, QPalette.Text, brush3)
+        brush5 = QBrush(QColor(0, 255, 255, 255))
+        brush5.setStyle(Qt.SolidPattern)
+        palette2.setBrush(QPalette.Active, QPalette.ButtonText, brush5)
+        palette2.setBrush(QPalette.Inactive, QPalette.WindowText, brush1)
+        palette2.setBrush(QPalette.Inactive, QPalette.Text, brush1)
+        palette2.setBrush(QPalette.Inactive, QPalette.ButtonText, brush1)
+        palette2.setBrush(QPalette.Disabled, QPalette.WindowText, brush2)
+        palette2.setBrush(QPalette.Disabled, QPalette.Text, brush2)
+        palette2.setBrush(QPalette.Disabled, QPalette.ButtonText, brush2)
+        self.label_7.setPalette(palette2)
+        font2 = QFont()
+        font2.setFamilies([u"Arial"])
+        font2.setPointSize(14)
+        font2.setBold(True)
+        self.label_7.setFont(font2)
+        self.label_7.setFrameShape(QFrame.NoFrame)
+        self.label_7.setFrameShadow(QFrame.Sunken)
+        self.label_7.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.label_7)
+
+        self.Status_txt = QLineEdit(self.centralwidget)
+        self.Status_txt.setObjectName(u"Status_txt")
+        self.Status_txt.setMinimumSize(QSize(400, 40))
+        self.Status_txt.setMaximumSize(QSize(16777215, 40))
+        palette3 = QPalette()
+        palette3.setBrush(QPalette.Active, QPalette.Text, brush4)
+        palette3.setBrush(QPalette.Inactive, QPalette.Text, brush1)
+        palette3.setBrush(QPalette.Disabled, QPalette.Text, brush2)
+        self.Status_txt.setPalette(palette3)
+        self.Status_txt.setFont(font)
+        self.Status_txt.setStyleSheet(u"border:2px;border-style:dashed;border-color: rgb(0, 170, 255);")
+        self.Status_txt.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout.addWidget(self.Status_txt)
+
+        self.horizontalSpacer_2 = QSpacerItem(100, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer_2)
 
@@ -145,10 +193,10 @@ class Ui_MainWindow(object):
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
         self.menubar.setGeometry(QRect(0, 0, 877, 31))
-        font2 = QFont()
-        font2.setPointSize(14)
-        font2.setBold(True)
-        self.menubar.setFont(font2)
+        font3 = QFont()
+        font3.setPointSize(14)
+        font3.setBold(True)
+        self.menubar.setFont(font3)
         self.menuMenu = QMenu(self.menubar)
         self.menuMenu.setObjectName(u"menuMenu")
         self.menuData = QMenu(self.menubar)
@@ -174,6 +222,9 @@ class Ui_MainWindow(object):
         self.XML_file_txt.setText("")
         self.XML_file_txt.setPlaceholderText(QCoreApplication.translate("MainWindow", u"XML file with PV names", None))
         self.Load_pvxml_btn.setText(QCoreApplication.translate("MainWindow", u"LoadXML", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"StatusText", None))
+        self.Status_txt.setText("")
+        self.Status_txt.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Input Current Status", None))
         self.Add_record_btn.setText(QCoreApplication.translate("MainWindow", u"add record", None))
         self.Save_tofile_btn.setText(QCoreApplication.translate("MainWindow", u"Save to File", None))
         self.menuMenu.setTitle(QCoreApplication.translate("MainWindow", u"Menu", None))

@@ -7,6 +7,8 @@
 			<Mirror_SET Name="X20U:OP:PGM1:MR.VAL">12450</Mirror_SET>
 			<Mirror_RBV Name="X20U:OP:PGM1:MR.RBV">12450</Mirror_RBV>
 			<GR_SET Name="X20U:OP:PGM1:GR.VAL" />
+			<GR_RBV Name="X20U:OP:PGM1:GR.RBV" />
+			<GR_Type Name="X20U:OP:PGM1:GRATE_TYPE" />
 		</PGM1>
 	</Eline20U2>
 </SSRF-Eline>

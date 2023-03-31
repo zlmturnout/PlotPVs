@@ -1,4 +1,3 @@
-from genericpath import isfile
 import time, random, sys, os, math, datetime, traceback
 import pandas as pd
 from PySide6.QtCore import Qt,Signal,Slot,QTimer,QThread
