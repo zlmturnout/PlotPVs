@@ -81,10 +81,17 @@ class SavePVRecords(QMainWindow,Ui_MainWindow):
         self.pvalias_list=[]
         self.pd_data_model=None
         self.record_id=0
+        self.__ini_icons()
 
 
 # **************************************VerTicaL@zlm**************************************  
 #  start of pv record part
+
+    def __ini_icons(self):
+        icon_path=os.path.realpath('icons')
+        print(f'icon_path: %s' % icon_path)
+        main_icon=QIcon(os.path.join(icon_path, 'mainUI.ico'))
+        self.setWindowIcon(main_icon)
 
     @Slot()
     def on_Load_pvxml_btn_clicked(self):
