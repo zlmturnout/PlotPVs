@@ -118,6 +118,7 @@ def dict_to_SQLTable(data_dict: dict, table_name: str, db_path: os.getcwd(), db_
         status = False
     else:
         pd_data.to_sql(name=table_name, con=cxn, if_exists='replace', index_label='id')
+        #pd_data.to_sql(name=table_name, con=cxn, if_exists='replace')
         cxn.commit()
         cxn.close()
     return status
