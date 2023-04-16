@@ -110,7 +110,7 @@ class PVMonitor(QWidget,Ui_Form):
             self.pv_value_list.append(float(value))
             self.pv_num_list.append(self.pv_changed_Num)
             self.pv_timestamps.append(get_timestamp())
-            if self.pv_changed_Num>100:
+            if self.pv_changed_Num>1000:
                 num_list=self.pv_num_list[-1000:]
                 value_list=self.pv_value_list[-1000:]
                 timestamps=self.pv_timestamps[-1000:]
@@ -174,7 +174,7 @@ class PVMonitor(QWidget,Ui_Form):
     def __init__datasave(self):
         self.datasave_timer=QTimer()
         self.datasave_timer.timeout.connect(self.routine_data_save)
-        self.datasave_timer.start(1000*60) # save data every 10min
+        self.datasave_timer.start(1000*600) # save data every 10min
         self.datasave_num=0
         self._usr_save_N=0
 
@@ -191,7 +191,7 @@ class PVMonitor(QWidget,Ui_Form):
          self.datasave_num+=1
          all_valid_data = self.get_full_data()
          cur_datetime=time.strftime("%Y-%m-%d-%H-%M", time.localtime())
-         cur_date=time.strftime("%Y-%m-%d", time.localtime())
+         cur_date=time.strftime("%Y-%m-%d-%H", time.localtime())
          save_header=self.pvname.replace(":","_")
          #filename=f'{save_header}-{cur_datetime}N{self.datasave_num}'
          filename=f'AutoSave_{save_header}_{cur_date}'
@@ -220,7 +220,7 @@ class PVMonitor(QWidget,Ui_Form):
             filename: filename
         """
         if full_data and os.path.isdir(path):
-            dict_to_csv(full_data, path, filename + '.csv')
+            #dict_to_csv(full_data, path, filename + '.csv')
             dict_to_excel(full_data, path, filename + '.xlsx')
             dict_to_json(full_data, path, filename + '.json')
             dict_to_SQLTable(full_data,filename, SQLiteDB_path, 'PVMonitorData.db')
