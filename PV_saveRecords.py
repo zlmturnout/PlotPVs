@@ -181,14 +181,13 @@ class SavePVRecords(QMainWindow,Ui_MainWindow):
             save_path = os.getcwd()
         excel_file_path = os.path.join(save_path, filename + '.xlsx')
         # excel writer
-        excel_writer = pd.ExcelWriter(excel_file_path)
-        pd_data.to_excel(excel_writer)
-        excel_writer.save()
+        with pd.ExcelWriter(excel_file_path) as writer:
+            pd_data.to_excel(writer)
         print(f'save to excel xlsx file {excel_file_path} successfully')
         # # csv file
-        # csv_file_path = os.path.join(save_path, filename + '.csv')
-        # pd_data.to_csv(csv_file_path)
-        # print(f'save to csv file {csv_file_path} successfully')
+        csv_file_path = os.path.join(save_path, filename + '.csv')
+        pd_data.to_csv(csv_file_path)
+        print(f'save to csv file {csv_file_path} successfully')
         # # json file
         # json_file_path = os.path.join(save_path, filename + '.json')
         # pd_data.to_json(json_file_path)
