@@ -110,10 +110,10 @@ class PVMonitor(QWidget,Ui_Form):
             self.pv_value_list.append(float(value))
             self.pv_num_list.append(self.pv_changed_Num)
             self.pv_timestamps.append(get_timestamp())
-            if self.pv_changed_Num>100:
-                num_list=self.pv_num_list[-100:]
-                value_list=self.pv_value_list[-100:]
-                timestamps=self.pv_timestamps[-100:]
+            if self.pv_changed_Num>1000:
+                num_list=self.pv_num_list[-1000:]
+                value_list=self.pv_value_list[-1000:]
+                timestamps=self.pv_timestamps[-1000:]
             else:
                 num_list=self.pv_num_list
                 value_list=self.pv_value_list
@@ -191,8 +191,10 @@ class PVMonitor(QWidget,Ui_Form):
          self.datasave_num+=1
          all_valid_data = self.get_full_data()
          cur_datetime=time.strftime("%Y-%m-%d-%H-%M", time.localtime())
+         cur_date=time.strftime("%Y-%m-%d-%H", time.localtime())
          save_header=self.pvname.replace(":","_")
-         filename=f'{save_header}-{cur_datetime}N{self.datasave_num}'
+         #filename=f'{save_header}-{cur_datetime}N{self.datasave_num}'
+         filename=f'AutoSave_{save_header}_{cur_date}'
          today_folder=createPath(os.path.join(save_path,time.strftime('%Y-%m-%d', time.localtime())))
          self.save_all_data(all_valid_data,today_folder,filename)
         
@@ -201,7 +203,7 @@ class PVMonitor(QWidget,Ui_Form):
         get all the data whcih is not empty
         """
         valid_full_data=dict()
-        pv_data={"id":self.pv_num_list,"value":self.pv_value_list,"timestamp":self.pv_timestamps}
+        pv_data={"num":self.pv_num_list,"value":self.pv_value_list,"timestamp":self.pv_timestamps}
         # get the valid scan data (not empty)
         for key, value in pv_data.items():
             if value:
@@ -218,7 +220,7 @@ class PVMonitor(QWidget,Ui_Form):
             filename: filename
         """
         if full_data and os.path.isdir(path):
-            dict_to_csv(full_data, path, filename + '.csv')
+            #dict_to_csv(full_data, path, filename + '.csv')
             dict_to_excel(full_data, path, filename + '.xlsx')
             dict_to_json(full_data, path, filename + '.json')
             dict_to_SQLTable(full_data,filename, SQLiteDB_path, 'PVMonitorData.db')

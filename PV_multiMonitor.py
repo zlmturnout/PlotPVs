@@ -138,7 +138,7 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
     
     @Slot()
     def on_actionSSRF_epics_triggered(self):
-        pvname="SR-Bl:DCCT:CURRENT"
+        pvname="SR-BI:DCCT:CURRENT"
         tagname="SSRF BeamStatus"
         #self.statusBar().showMessage(tagname,3000)
         #self.Add_pv_plot(pvname,tagname)
@@ -251,7 +251,7 @@ class MultiPVmonitor(QMainWindow,Ui_MainWindow):
             for i in range(len(self.pd_pvdata)):
                 beamline_list.append(self.pd_pvdata.loc[i,"Beamline"])
         beamline_set=set(beamline_list)
-        print(beamline_set,beamline_list)
+        #print(beamline_set,beamline_list)
         for beamline in beamline_set:
             # create a menu for each beamline
             Beamline_menu = QMenu(f'{beamline}',self)

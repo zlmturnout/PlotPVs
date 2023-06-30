@@ -1,4 +1,4 @@
 @echo off
-E:
-cd E:\Eline20UProjects\PlotPVs
+I:
+cd I:\CODE-X\GitReposity\PlotPVs
 start python main.py

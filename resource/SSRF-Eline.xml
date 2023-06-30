@@ -10,5 +10,31 @@
 			<GR_RBV Name="X20U:OP:PGM1:GR.RBV" />
 			<GR_Type Name="X20U:OP:PGM1:GRATE_TYPE" />
 		</PGM1>
+		<SM3 Catgory="Equiment">
+			//X1
+			<SM3_X1_RBV Name="X20U:OP:SM3:X1.RBV">3640</SM3_X1_RBV>
+			<SM3_X1_SET Name="X20U:OP:SM3:X1.VAL">3640</SM3_X1_SET>
+			<SM3_X1_RAW Name="X20U:OP:SM3:X1.RVAL">182032</SM3_X1_RAW>
+			//X2
+			<SM3_X2_RBV Name="X20U:OP:SM3:X2.RBV">9569</SM3_X2_RBV>
+			<SM3_X2_SET Name="X20U:OP:SM3:X2.VAL">9567</SM3_X2_SET>
+			<SM3_X2_RAW Name="X20U:OP:SM3:X2.RVAL">478448</SM3_X2_RAW>
+			//Z
+			<SM3_Z_RBV Name="X20U:OP:SM3:Z.RBV">-1051</SM3_Z_RBV>
+			<SM3_Z_SET Name="X20U:OP:SM3:Z.VAL">-1051</SM3_Z_SET>
+			//X
+			<SM3_X_RBV Name="X20U:OP:SM3:X.RBV">-1051</SM3_X_RBV>
+			<SM3_X_SET Name="X20U:OP:SM3:X.VAL">-1051</SM3_X_SET>
+			//Pitch
+			<SM3_Pitch_RBV Name="X20U:OP:SM3:Pitch.RBV">-1051</SM3_Pitch_RBV>
+			<SM3_Pitch_SET Name="X20U:OP:SM3:Pitch.VAL">-1051</SM3_Pitch_SET>
+			//Yaw
+			<SM3_Yaw_RBV Name="X20U:OP:SM3:Yaw.RBV">-1051</SM3_Yaw_RBV>
+			<SM3_Yaw_SET Name="X20U:OP:SM3:Yaw.VAL">-1051</SM3_Yaw_SET>
+			//Roll
+			<SM3_Roll_RBV Name="X20U:OP:SM3:Roll.RBV">-1051</SM3_Roll_RBV>
+			<SM3_Roll_SET Name="X20U:OP:SM3:Roll.VAL">-1051</SM3_Roll_SET>
+
+		</SM3>
 	</Eline20U2>
 </SSRF-Eline>

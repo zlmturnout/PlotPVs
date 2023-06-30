@@ -2,6 +2,7 @@
 UI/__pycache__
 *.py[cod]
 *$py.class
+# batch file
 
 # C extensions
 *.so
